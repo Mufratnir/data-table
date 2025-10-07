@@ -11,102 +11,83 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
     />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
       <div class="container">
         <div class="header-wrapper">
-          <h1>Users</h1>
-          <div>
+          <h1>Admin</h1>
+          <div class="search-box">
             <input type="search" placeholder="Search user ....." />
             <div class="search-icon">
               <span class="material-symbols-outlined"> search </span>
             </div>
           </div>
-          <button class="user-button">add new user</button>
+          <button class="user-button"><span>add new user </span></button>
         </div>
       </div>
     </header>
 
     <section class="section-user-add">
-      <form action="">
-        <div>
-          <label for="">Name</label>
-          <input type="text" placeholder="Enter your Name" required />
+      <div class="form-wrapper">
+        <div class="close-button">
+          <span class="material-symbols-outlined"> close </span>
         </div>
-        <div>
-          <label for="">Email</label>
-          <input type="email" placeholder="Enter your Email" required />
-        </div>
-        <div>
-          <label for="">Date of Birth</label>
-          <input type="date" required />
-        </div>
-        <input type="submit" value="Add User" class="submit-btn" />
-      </form>
+        <form action="">
+          <h2>Add user</h2>
+          <div>
+            <label for="">Name</label>
+            <input type="text" placeholder="Enter your Name"  class="form-input" required  />
+          </div>
+          <div>
+            <label for="">Email</label>
+            <input type="email" placeholder="Enter your Email" class="form-input" required  />
+          </div>
+          <div>
+            <label for="">Date of Birth</label>
+            <input type="date"  class="form-input" required />
+          </div>
+          <input type="submit" value="Add User" class="submit-btn" />
+        </form>
+      </div>
     </section>
 
     <section class="table-section">
       <table class="table">
-        <tr>
+        <tr class="table-header">
           <th>ID</th>
           <th>NAME</th>
           <th>EMAIL</th>
           <th>DATE OF BIRTH</th>
-          <th>ACTIONS</th>
+          <th class="is-right">ACTIONS</th>
         </tr>
-        <tr>
+        <tr class="table-row">
           <td>Alfreds Futterkiste</td>
           <td>Maria Anders</td>
           <td>Germany</td>
           <td>Germany</td>
+          <td class="is-right">
+            <button class="btn">
+              <span class="material-symbols-outlined"> edit </span>
+            </button>
+            <button class="btn">
+              <span class="material-symbols-outlined"> delete </span>
+            </button>
+          </td>
         </tr>
-        <div class="button-wrapper">
-          <button class="btn">
-            <span class="material-symbols-outlined"> edit </span>
-          </button>
-          <button class="btn">
-            <span class="material-symbols-outlined"> delete </span>
-          </button>
-        </div>
       </table>
     </section>
-    <section class="pagination">
-      <a href="#"> Prev</a>
-      <a href="#">1</a>
-      <a class="active" href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">4</a>
-      <a href="#">5</a>
-      <a href="#">Next</a>
+    <section class="pagination-section">
+      <div class="pagination">
+        <a href="#"> Prev</a>
+        <a href="#">1</a>
+        <a class="active" href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">Next</a>
+      </div>
     </section>
   </body>
 </html>
-
-<!-- CSS -->
-<style>
-  @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
-  }
-
-  .container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-.header-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 0;
-}
-
-
-</style>
