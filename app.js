@@ -10,7 +10,7 @@ const userTable = document.querySelector("#user-table");
 const deleteButton = document.querySelector("#delete-button");
 const submitButton = form.querySelector(".submit-btn");
 const searchInput = document.querySelector("#search");
-const tableRow = document.querySelector(".table-row");
+const pagination = document.querySelector(".pagination");
 
 // form open and close
 userButton.addEventListener("click", () => {
@@ -30,7 +30,7 @@ form.addEventListener("submit", (e) => {
   const salaryValue = salaryInput.value;
   const dobvalue = dob.value;
   const idvalue = new Date().getTime().toString();
-  
+
   if (isEdit == false) {
     // form submit and add data to table
     const newRow = document.createElement("tr");
@@ -62,6 +62,9 @@ form.addEventListener("submit", (e) => {
 
     form.reset();
     sectionUserAdd.style.display = "none";
+
+    isEdit = false;
+    submitButton.value = "Add User";
   }
 });
 
@@ -86,7 +89,6 @@ userTable.addEventListener("click", (e) => {
     salaryInput.value = selectRow.children[3].textContent;
     dob.value = selectRow.children[4].textContent;
 
-
     submitButton.value = "Save Changes";
   }
 });
@@ -101,7 +103,10 @@ searchInput.addEventListener("input", (e) => {
     if (name || email) {
       const nameValue = name.textContent || name.innerText;
       const emailValue = email.textContent || email.innerText;
-      if (nameValue.toLowerCase().indexOf(value) > -1 || emailValue.toLowerCase().indexOf(value) > -1) {
+      if (
+        nameValue.toLowerCase().indexOf(value) > -1 ||
+        emailValue.toLowerCase().indexOf(value) > -1
+      ) {
         tr[i].style.display = "";
       } else {
         tr[i].style.display = "none";
@@ -109,3 +114,7 @@ searchInput.addEventListener("input", (e) => {
     }
   }
 });
+
+// Pagination
+const tableSize = 10;
+const currentPage = 1;
