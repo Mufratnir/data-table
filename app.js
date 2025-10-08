@@ -17,38 +17,64 @@ closeButton.addEventListener("click", () => {
   sectionUserAdd.style.display = "none";
 });
 
-// form submit and add data to table
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const namevalue = nameInput.value;
-  const emailValue = emailInput.value;
-  const salaryValue = salaryInput.value;
-  const dobvalue = dob.value;
-  const idvalue= new Date().getTime().toString();
+let isEdit = false;
+let editRow = null;
 
-  const newRow = document.createElement("tr");
-  newRow.classList.add("table-row");
-  newRow.innerHTML = `<td id="id">${idvalue}</td>
+if (isEdit === false) {
+  // form submit and add data to table
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const namevalue = nameInput.value;
+    const emailValue = emailInput.value;
+    const salaryValue = salaryInput.value;
+    const dobvalue = dob.value;
+    const idvalue = new Date().getTime().toString();
+    const newRow = document.createElement("tr");
+
+    newRow.classList.add("table-row");
+    newRow.innerHTML = `<td id="id">${idvalue}</td>
         <th id= "name">${namevalue}</th>
         <th id= "email">${emailValue}</th>
         <th id= "salary">${salaryValue}</th>
         <th id= "dob">${dobvalue}</th>
         <td class="is-right">
-            <button class="btn">
+            <button class="btn edit">
               <span class="material-symbols-outlined"> edit </span>
             </button>
-            <button class="btn">
+            <button class="btn delete">
               <span class="material-symbols-outlined"> delete </span>
             </button>
           </td> `;
-        
-        userTable.appendChild(newRow);
 
-        form.reset();
+    userTable.appendChild(newRow);
 
-        sectionUserAdd.style.display = "none";
-});
+    form.reset();
+
+    sectionUserAdd.style.display = "none";
+  });
+} else {
+
+}
+
+
 
 userTable.addEventListener("click", (e) => {
-        
-})
+  if (
+    e.target.classList.contains("delete") ||
+    e.target.parentElement.classList.contains("delete")
+  ) {
+    e.target.closest("tr").remove();
+  }
+
+  if (
+    e.target.classList.contains("edit") ||
+    e.target.parentElement.classList.contains("edit")
+  ) {
+    sectionUserAdd.style.display = "flex";
+    const selectRow = e.target.closest("tr");
+    nameInput.value = selectRow.children[1].textContent;
+    emailInput.value = selectRow.children[2].textContent;
+    salaryInput.value = selectRow.children[3].textContent;
+    dob.value = selectRow.children[4].textContent;
+  }
+});
