@@ -8,6 +8,10 @@ const salaryInput = document.querySelector("#salary-input");
 const dob = document.querySelector("#dob-input");
 const userTable = document.querySelector("#user-table");
 const deleteButton = document.querySelector("#delete-button");
+const submitButton = form.querySelector(".submit-btn");
+const searchInput = document.querySelector("#search");
+const tableRow = document.querySelector(".table-row");
+
 // form open and close
 userButton.addEventListener("click", () => {
   sectionUserAdd.style.display = "flex";
@@ -18,19 +22,18 @@ closeButton.addEventListener("click", () => {
 });
 
 let isEdit = false;
-let editRow = null;
-
-if (isEdit === false) {
-  // form submit and add data to table
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const namevalue = nameInput.value;
-    const emailValue = emailInput.value;
-    const salaryValue = salaryInput.value;
-    const dobvalue = dob.value;
-    const idvalue = new Date().getTime().toString();
+// let editRow = null;
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const namevalue = nameInput.value;
+  const emailValue = emailInput.value;
+  const salaryValue = salaryInput.value;
+  const dobvalue = dob.value;
+  const idvalue = new Date().getTime().toString();
+  
+  if (isEdit == false) {
+    // form submit and add data to table
     const newRow = document.createElement("tr");
-
     newRow.classList.add("table-row");
     newRow.innerHTML = `<td id="id">${idvalue}</td>
         <th id= "name">${namevalue}</th>
@@ -51,12 +54,16 @@ if (isEdit === false) {
     form.reset();
 
     sectionUserAdd.style.display = "none";
-  });
-} else {
+  } else {
+    editRow.children[1].textContent = nameInput.value;
+    editRow.children[2].textContent = emailInput.value;
+    editRow.children[3].textContent = salaryInput.value;
+    editRow.children[4].textContent = dob.value;
 
-}
-
-
+    form.reset();
+    sectionUserAdd.style.display = "none";
+  }
+});
 
 userTable.addEventListener("click", (e) => {
   if (
@@ -70,11 +77,35 @@ userTable.addEventListener("click", (e) => {
     e.target.classList.contains("edit") ||
     e.target.parentElement.classList.contains("edit")
   ) {
+    isEdit = true;
     sectionUserAdd.style.display = "flex";
     const selectRow = e.target.closest("tr");
+    editRow = selectRow;
     nameInput.value = selectRow.children[1].textContent;
     emailInput.value = selectRow.children[2].textContent;
     salaryInput.value = selectRow.children[3].textContent;
     dob.value = selectRow.children[4].textContent;
+
+
+    submitButton.value = "Save Changes";
+  }
+});
+
+searchInput.addEventListener("input", (e) => {
+  const value = e.target.value.toLowerCase();
+  console.log(value);
+  const tr = userTable.getElementsByTagName("tr");
+  for (let i = 0; i < tr.length; i++) {
+    const name = tr[i].getElementsByTagName("td")[1];
+    const email = tr[i].getElementsByTagName("td")[2];
+    if (name || email) {
+      const nameValue = name.textContent || name.innerText;
+      const emailValue = email.textContent || email.innerText;
+      if (nameValue.toLowerCase().indexOf(value) > -1 || emailValue.toLowerCase().indexOf(value) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
   }
 });
