@@ -11,7 +11,10 @@ const deleteButton = document.querySelector("#delete-button");
 const submitButton = form.querySelector(".submit-btn");
 const searchInput = document.querySelector("#search");
 const pagination = document.querySelector(".pagination");
-
+const prevButton = document.querySelector("#prev");
+const nextButton = document.querySelector("#next");
+const pageLinks = document.querySelector(".page-link");
+const tableRow = document.querySelector(".table-row");
 // form open and close
 userButton.addEventListener("click", () => {
   sectionUserAdd.style.display = "flex";
@@ -66,6 +69,28 @@ form.addEventListener("submit", (e) => {
     isEdit = false;
     submitButton.value = "Add User";
   }
+
+  // searchInput.addEventListener("input", (e) => {
+  //   const value = e.target.value.toLowerCase();
+  //   console.log(value);
+  //   const tr = userTable.getElementsByTagName("tr");
+  //   for (let i = 0; i < tr.length; i++) {
+  //     const name = tr[i].getElementsByTagName("td")[1];
+  //     const email = tr[i].getElementsByTagName("td")[2];
+  //     if (name || email) {
+  //       const nameValue = name.textContent || name.innerText;
+  //       const emailValue = email.textContent || email.innerText;
+  //       if (
+  //         nameValue.toLowerCase().indexOf(value) > -1 ||
+  //         emailValue.toLowerCase().indexOf(value) > -1
+  //       ) {
+  //         tr[i].style.display = "";
+  //       } else {
+  //         tr[i].style.display = "none";
+  //       }
+  //     }
+  //   }
+  // });
 });
 
 userTable.addEventListener("click", (e) => {
@@ -93,28 +118,103 @@ userTable.addEventListener("click", (e) => {
   }
 });
 
-searchInput.addEventListener("input", (e) => {
-  const value = e.target.value.toLowerCase();
-  console.log(value);
-  const tr = userTable.getElementsByTagName("tr");
-  for (let i = 0; i < tr.length; i++) {
-    const name = tr[i].getElementsByTagName("td")[1];
-    const email = tr[i].getElementsByTagName("td")[2];
-    if (name || email) {
-      const nameValue = name.textContent || name.innerText;
-      const emailValue = email.textContent || email.innerText;
-      if (
-        nameValue.toLowerCase().indexOf(value) > -1 ||
-        emailValue.toLowerCase().indexOf(value) > -1
-      ) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-});
+// searchInput.addEventListener("input", (e) => {
+//   const value = e.target.value.toLowerCase();
+//   console.log(value);
+//   const tr = userTable.getElementsByTagName("tr");
+//   for (let i = 0; i < tr.length; i++) {
+//     const name = tr[i].getElementsByTagName("td")[1];
+//     const email = tr[i].getElementsByTagName("td")[2];
+//     if (name || email) {
+//       const nameValue = name.textContent || name.innerText;
+//       const emailValue = email.textContent || email.innerText;
+//       if (
+//         nameValue.toLowerCase().indexOf(value) > -1 ||
+//         emailValue.toLowerCase().indexOf(value) > -1
+//       ) {
+//         tr[i].style.display = "";
+//       } else {
+//         tr[i].style.display = "none";
+//       }
+//     }
+//   }
+// });
 
 // Pagination
-const tableSize = 10;
-const currentPage = 1;
+
+const rowsPerPage = 5;
+let currentPage = 1;
+
+function displayTableRows() {
+  const rows = userTable.querySelectorAll(".table-row");
+  const totalRows = rows.length;
+  const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+
+  rows.forEach((row, index) => {
+    row.style.display =
+      index >= (currentPage - 1) * rowsPerPage &&
+      index < currentPage * rowsPerPage
+        ? "grid"
+        : "none";
+  });
+
+
+  updatePagination(totalPages);
+}
+
+function updatePagination(totalPages) {
+  const paginationContainer = document.getElementById("pagination");
+  paginationContainer.innerHTML = "";
+
+
+  const prev = document.createElement("a");
+  prev.href = "#";
+  prev.textContent = "Prev";
+  prev.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (currentPage > 1) {
+      currentPage--;
+      displayTableRows();
+    }
+  });
+  paginationContainer.appendChild(prev);
+
+
+  for (let i = 1; i <= totalPages; i++) {
+    const pageLink = document.createElement("a");
+    pageLink.href = "#";
+    pageLink.textContent = i;
+    pageLink.classList.add("page-link");
+    if (i === currentPage) {
+      pageLink.classList.add("active");
+    }
+    pageLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      currentPage = i;
+      displayTableRows();
+    });
+    paginationContainer.appendChild(pageLink);
+  }
+
+
+  const next = document.createElement("a");
+  next.href = "#";
+  next.textContent = "Next";
+  next.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (currentPage < totalPages) {
+      currentPage++;
+      displayTableRows();
+    }
+  });
+  paginationContainer.appendChild(next);
+}
+
+const observer = new MutationObserver(() => {
+  displayTableRows();
+});
+observer.observe(userTable, { childList: true });
+
+
+window.addEventListener("DOMContentLoaded", displayTableRows);

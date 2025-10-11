@@ -19,7 +19,7 @@
         <div class="header-wrapper">
           <h1>Admin</h1>
           <div class="search-box">
-            <input id ="search" placeholder="Search user ....." />
+            <input id="search" placeholder="Search user ....." />
             <div class="search-icon">
               <span class="material-symbols-outlined"> search </span>
             </div>
@@ -38,15 +38,33 @@
           <h2>Add user</h2>
           <div>
             <label for="name-input">Name</label>
-            <input id="name-input" type="text" placeholder="Enter your Name" class="form-input" required />
+            <input
+              id="name-input"
+              type="text"
+              placeholder="Enter your Name"
+              class="form-input"
+              required
+            />
           </div>
           <div>
             <label for="email-input">Email</label>
-            <input id="email-input" type="email" placeholder="Enter your Email" class="form-input" required />
+            <input
+              id="email-input"
+              type="email"
+              placeholder="Enter your Email"
+              class="form-input"
+              required
+            />
           </div>
           <div>
             <label for="salary-input">Salary</label>
-            <input id="salary-input" type="text" placeholder="Enter your Salary" class="form-input" required />
+            <input
+              id="salary-input"
+              type="text"
+              placeholder="Enter your Salary"
+              class="form-input"
+              required
+            />
           </div>
           <div>
             <label for="dob-input">Date of Birth</label>
@@ -61,10 +79,10 @@
       <table class="table" id="user-table">
         <tr class="table-header">
           <th>ID</th>
-          <th id= "name">NAME</th>
-          <th id= "email">EMAIL</th>
-          <th id= "salary">SALARY</th>
-          <th id= "dob">DATE OF BIRTH</th>
+          <th id="name">NAME</th>
+          <th id="email">EMAIL</th>
+          <th id="salary">SALARY</th>
+          <th id="dob">DATE OF BIRTH</th>
           <th class="is-right">ACTIONS</th>
         </tr>
         <tr class="table-row">
@@ -85,14 +103,14 @@
       </table>
     </section>
     <section class="pagination-section">
-      <div class="pagination">
-        <a href="#"> Prev</a>
-        <a href="#">1</a>
-        <a class="active" href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">Next</a>
+      <div class="pagination" id="pagination">
+        <a href="#" id="prev"> Prev</a>
+        <a href="#" class="page-link" >1</a>
+        <a href="#"  class="active page-link" >2</a>
+        <a href="#" class="page-link" >3</a>
+        <a href="#" class="page-link">4</a>
+        <a href="#" class="page-link" >5</a>
+        <a href="#" id="next">Next</a>
       </div>
     </section>
 
