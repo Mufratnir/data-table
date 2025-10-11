@@ -70,27 +70,6 @@ form.addEventListener("submit", (e) => {
     submitButton.value = "Add User";
   }
 
-  // searchInput.addEventListener("input", (e) => {
-  //   const value = e.target.value.toLowerCase();
-  //   console.log(value);
-  //   const tr = userTable.getElementsByTagName("tr");
-  //   for (let i = 0; i < tr.length; i++) {
-  //     const name = tr[i].getElementsByTagName("td")[1];
-  //     const email = tr[i].getElementsByTagName("td")[2];
-  //     if (name || email) {
-  //       const nameValue = name.textContent || name.innerText;
-  //       const emailValue = email.textContent || email.innerText;
-  //       if (
-  //         nameValue.toLowerCase().indexOf(value) > -1 ||
-  //         emailValue.toLowerCase().indexOf(value) > -1
-  //       ) {
-  //         tr[i].style.display = "";
-  //       } else {
-  //         tr[i].style.display = "none";
-  //       }
-  //     }
-  //   }
-  // });
 });
 
 userTable.addEventListener("click", (e) => {
